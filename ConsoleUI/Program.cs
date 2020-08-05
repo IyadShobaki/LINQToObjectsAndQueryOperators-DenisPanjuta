@@ -18,6 +18,9 @@ namespace ConsoleUI
 
             um.AllStudentsFromBeijingTech();
 
+            um.StudentAndUniversityNameCollection();
+
+            /*
             int[] someInts = { 30, 12, 4, 3, 12 };
 
             IEnumerable<int> sortedInts = from i in someInts orderby i select i;
@@ -35,6 +38,8 @@ namespace ConsoleUI
             {
                 Console.WriteLine(i);
             }
+            */
+
             /*
             Console.WriteLine("Please enter university id to see its students: ");
 
@@ -51,6 +56,7 @@ namespace ConsoleUI
                 Console.WriteLine("Invalid input");
             }
             */
+
 
 
 
@@ -151,6 +157,26 @@ namespace ConsoleUI
             foreach (var student in studentsFromUniversity)
             {
                 student.Print();
+            }
+        }
+
+        public void StudentAndUniversityNameCollection()
+        {
+            var newCollection = from student in students
+                                join university in universities
+                                on student.UniversityId equals university.Id
+                                orderby student.Name
+                                select new
+                                {
+                                    StudentName = student.Name,
+                                    UniversityName = university.Name
+                                };
+
+            Console.WriteLine("New Collection: ");
+
+            foreach (var col in newCollection)
+            {
+                Console.WriteLine($"Student { col.StudentName } from University { col.UniversityName }");
             }
         }
     }
